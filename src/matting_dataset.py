@@ -11,7 +11,7 @@ from PIL import Image
 
 class MattingDataset(Dataset):
     def __init__(self,
-                 dataset_root_dir='src/datasets/PPM-100',
+                 dataset_root_dir='datasets/avatar',
                  transform=None):
         image_path = dataset_root_dir + '/train/fg/*'
         matte_path = dataset_root_dir + '/train/alpha/*'
