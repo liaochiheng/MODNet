@@ -348,9 +348,9 @@ if __name__ == '__main__':
                 'model_state_dict': modnet.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': {'semantic_loss': semantic_loss, 'detail_loss': detail_loss, 'matte_loss': matte_loss},
-            }, f'pretrained/modnet_custom_portrait_matting_{epoch}_th.ckpt')
+            }, f'pretrained/modnet_avatar_matting_{epoch}_th.ckpt')
         print(f'{len(mattingDataset)}/{len(mattingDataset)} --- '
               f'semantic_loss: {semantic_loss:f}, detail_loss: {detail_loss:f}, matte_loss: {matte_loss:f}')
 
     # 仅保存模型权重参数
-    torch.save(modnet.state_dict(), f'pretrained/modnet_custom_portrait_matting_last_epoch_weight.ckpt')
+    torch.save(modnet.state_dict(), f'pretrained/modnet_avatar_matting_last_epoch_weight.ckpt')
