@@ -1,3 +1,7 @@
+# mine
+.DS_Store
+pretrained/
+
 # Temporary directories and files
 *.ckpt
 *.onnx

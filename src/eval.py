@@ -21,7 +21,7 @@ def cal_mse(pred, gt):
     return mse
 
 
-def load_eval_dataset(dataset_root_dir='src/datasets/PPM-100'):
+def load_eval_dataset(dataset_root_dir='datasets/avatar'):
     image_path = dataset_root_dir + '/val/fg/*'
     matte_path = dataset_root_dir + '/val/alpha/*'
     image_file_name_list = glob(image_path)
@@ -60,13 +60,13 @@ if __name__ == '__main__':
     modnet = MODNet(backbone_pretrained=False)
     modnet = nn.DataParallel(modnet)
 
-    ckp_pth = 'pretrained/modnet_photographic_portrait_matting.ckpt'
+    ckp_pth = 'pretrained/modnet_avatar_matting_last_epoch_weight.ckpt'
     if torch.cuda.is_available():
         modnet = modnet.cuda()
         weights = torch.load(ckp_pth)
     else:
         weights = torch.load(ckp_pth, map_location=torch.device('cpu'))
     modnet.load_state_dict(weights)
-    dataset = load_eval_dataset('src/datasets/PPM-100')
+    dataset = load_eval_dataset('datasets/avatar')
     mse, mad = eval(modnet, dataset)
     print(f'mse: {mse:6f}, mad: {mad:6f}')

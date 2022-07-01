@@ -68,7 +68,8 @@ if __name__ == '__main__':
     modnet = MODNet(backbone_pretrained=False)
     modnet = nn.DataParallel(modnet)
 
-    ckp_pth = 'pretrained/modnet_photographic_portrait_matting.ckpt'
+    # ckp_pth = 'pretrained/modnet_photographic_portrait_matting.ckpt'
+    ckp_pth = 'pretrained/modnet_avatar_matting_last_epoch_weight.ckpt'
     if torch.cuda.is_available():
         modnet = modnet.cuda()
         weights = torch.load(ckp_pth)
@@ -76,10 +77,13 @@ if __name__ == '__main__':
         weights = torch.load(ckp_pth, map_location=torch.device('cpu'))
     modnet.load_state_dict(weights)
 
-    pth = 'src/datasets/PPM-100/val/fg/5588688353_3426d4b5d9_o.jpg'
+    # pth = 'src/datasets/PPM-100/val/fg/5588688353_3426d4b5d9_o.jpg'
+    pth = 'datasets/avatar/val/fg/516657_3_00012.jpg'
     img = Image.open(pth)
 
     matte = predit_matte(modnet, img)
     prd_img = Image.fromarray(((matte * 255).astype('uint8')), mode='L')
-    prd_img.save('test_predic.jpg')
+    prd_img.save('test_predic2.jpg')
+    img.show()
+    prd_img.show()
 
